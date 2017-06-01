@@ -1,0 +1,8 @@
+class Solution {
+public:
+    int findComplement(int num) {
+        int up=~0;
+        while(num&up)up<<=1;
+        return ~up^num;
+    }
+};
