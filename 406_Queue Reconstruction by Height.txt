@@ -1,0 +1,22 @@
+﻿Description:
+Suppose you have a random list of people standing in a queue. Each person is described by a pair of integers (h, k), where h is the height of the person and k is the number of people in front of this person who have a height greater than or equal to h. Write an algorithm to reconstruct the queue.
+
+class Solution {
+public:
+    vector<pair<int, int>> reconstructQueue(vector<pair<int, int>>& people) {
+        auto cmp=[](pair<int, int> p1,pair<int, int> p2)            //自动变量函数类型(比较函数只在函数内有效)
+            { return p1.first<p2.first||(p1.first==p2.first&&p1.second>p2.second); };
+        sort(people.begin(),people.end(),cmp);  
+        int flag;
+        for(int i=people.size()-2;i>=0;i--){
+            flag=people[i].second;
+            while(flag){
+                swap(people[i],people[i+flag]);
+                flag--;
+            }
+        }
+        return people;
+    }
+};
+
+贪心算法，求每次局部最优解为整体最优

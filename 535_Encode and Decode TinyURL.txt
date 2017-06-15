@@ -1,0 +1,49 @@
+﻿Description: 
+	TinyURL is a URL shortening service where you enter a URL such as https://leetcode.com/problems/design-tinyurl and it returns a short URL such as http://tinyurl.com/4e9iAk.
+Design the encode and decode methods for the TinyURL service. There is no restriction on how your encode/decode algorithm should work. You just need to ensure that a URL can be encoded to a tiny URL and the tiny URL can be decoded to the original URL.
+
+class Solution {
+public:
+	int count;
+	char char_map[63];
+	unordered_map<int, string> hash;
+	Solution() :count(0) {}
+	int conversion(char ch) {
+		if (ch>='a')
+			return int(ch - 'a');
+		if (ch>='A')
+			return int(ch - 'A' + 26);
+		return int(ch - '0' + 52);
+	}
+	char conversion(int num) {
+		if (num<26)
+			return 'a' + num;
+		if (num<52)
+			return 'A' + num - 26;
+		return '0' + num - 52;
+	}
+	// Encodes a URL to a shortened URL.
+	string encode(string longUrl) {
+		string shortUrl("http://z.com/aaaaaa");
+		int num = count;
+		hash[count++] = longUrl;
+		for (int i = 18;num&&i >= 13;i--) {
+			shortUrl[i] = conversion(num % 62);
+			num /= 62;
+		}
+		return shortUrl;
+	}
+
+	// Decodes a shortened URL to its original URL.
+	string decode(string shortUrl) {
+		int num = 0;
+		for (int i = 13;i <= 18;i++) {
+			if (num || shortUrl[i] != 'a')
+				num = num * 62 + conversion(shortUrl[i]);
+		}
+		return hash[num];
+	}
+};
+
+设计了单射关系，一个地址对应多个短地址
+运用发号策略，每给过一个长地址，发一个短号，count不断自增即可

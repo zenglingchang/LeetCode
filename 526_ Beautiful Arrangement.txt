@@ -1,0 +1,29 @@
+﻿Description:
+Suppose you have N integers from 1 to N. We define a beautiful arrangement as an array that is constructed by these N numbers successfully if one of the following is true for the ith position (1 ≤ i ≤ N) in this array:
+
+1. The number at the ith position is divisible by i.
+2. i is divisible by the number at the ith position.
+
+class Solution {
+public:
+    void occupy(int size,int N,int &count,bool tag[]){
+        if(size>N){
+            count++;
+            return;
+        }
+        for(int k=1;k<=N;k++)
+            if(tag[k]==false&&(k%size==0||size%k==0)){
+                tag[k]=true;                           //标记使用过
+                occupy(size+1,N,count,tag);
+                tag[k]=false;                          //回退清除标记
+            }
+        return;
+    }
+    int countArrangement(int N) {
+        int count=0;
+        bool *tag=new bool[N]{false};
+        occupy(1,N,count,tag);
+        return count;
+    }
+};
+本题运用回溯算法，举出数组排列的所有可能;
