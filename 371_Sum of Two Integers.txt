@@ -1,0 +1,21 @@
+Description:
+	Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
+
+Example:
+Given a = 1 and b = 2, return 3.
+
+Code:
+class Solution {
+public:
+    int getSum(int a, int b) {
+        int sum=a;
+        while(b!=0){
+            a=sum^b;
+            b=(sum&b)<<1;
+            sum=a;
+        }
+        return sum;
+    }
+};
+For example:
+1001 +101=1100(1001&101)+10((1001^101)<<1)=1110(1100&10)+0
