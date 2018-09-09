@@ -1,14 +1,16 @@
 /* Given a string, find the length of the longest substring without repeating characters. */
-#include<iostream>
-#include<string>
+#include<stdio.h>
 #include<vector>
+#include<algorithm>
+#include<string>
+#include<iostream>
 using namespace std;
 
-static const auto io_sync_off = []() {
+/* static const auto io_sync_off = []() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
     return nullptr;
-}();
+}(); */
 
 class Solution {
 public:
@@ -26,9 +28,10 @@ public:
 };
 
 int main(){
-    int i=0;
-    string s="abcabccbb";
+    string s;
+    cin>>s;
     Solution solute;
-    cout<<solute.lengthOfLongestSubstring(s);
+    std::ios::sync_with_stdio(false);
+    cout<<solute.lengthOfLongestSubstring(s)<<endl;
     return 0;
 }
